@@ -73,11 +73,17 @@ public class DatabaseStorage implements DataStorageInterface
 			}
 			dataTables.setSynced(tableName, dataUploadTime);
 		}
+		
+		deleteUploadFiles();
 	}
 	
 	@Override
 	public void onDataUploadFailed()
 	{
+		deleteUploadFiles();
+	}
+	
+	protected void deleteUploadFiles() {
 		try
 		{
 			File uploadDirectory = uploadVault.getUploadDirectory();
@@ -100,7 +106,7 @@ public class DatabaseStorage implements DataStorageInterface
 			{
 				e.printStackTrace();
 			}
-		}
+		}		
 	}
 
 	@Override
