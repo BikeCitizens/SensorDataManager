@@ -25,18 +25,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.CoreConnectionPNames;
-import org.apache.http.params.CoreProtocolPNames;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,10 +59,7 @@ public abstract class AbstractPostThread extends Thread
 	
 	protected void post(final MultipartEntity multipartEntity) throws Exception
 	{
-		HttpClient httpclient = new DefaultHttpClient();
-		httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
-		httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 60 * 1000);
-
+		
 		if (params != null)
 		{
 			for (String key : params.keySet())
@@ -77,13 +69,31 @@ public abstract class AbstractPostThread extends Thread
 			}
 		}
 		
-		HttpPost httppost = new HttpPost(serverUrl);
-		httppost.setEntity(multipartEntity);
+		HttpURLConnection conn = (HttpURLConnection)new URL(serverUrl).openConnection();
+		conn.setConnectTimeout(60 * 1000);
+		conn.setRequestProperty("Content-Type", multipartEntity.getContentType().getValue());
+		conn.setRequestProperty("Content-Length", Long.toString(multipartEntity.getContentLength()));
+		conn.setDoOutput(true);
 		
-		HttpResponse httpResponse = httpclient.execute(httppost);
-		int status = httpResponse.getStatusLine().getStatusCode();
-		String response = convertStreamToString(httpResponse.getEntity().getContent());
-		httpclient.getConnectionManager().shutdown();
+		multipartEntity.writeTo(conn.getOutputStream());
+
+		int redirects = 0;
+		while (conn.getResponseCode() == 302 && redirects < 5) {
+			redirects++;
+			String redirectUrl = conn.getHeaderField("Location");
+			conn.disconnect();
+			
+			conn = (HttpURLConnection)new URL(redirectUrl).openConnection();
+			conn.setRequestProperty("Content-Type", multipartEntity.getContentType().getValue());
+			conn.setRequestProperty("Content-Length", Long.toString(multipartEntity.getContentLength()));
+			conn.setConnectTimeout(60 * 1000);
+			conn.setDoOutput(true);
+			
+			multipartEntity.writeTo(conn.getOutputStream());
+		}
+		
+		String response = convertStreamToString(conn.getInputStream());
+		int status = conn.getResponseCode();
 		
 		if (status != STATUS_OK || !expectedResponse.equals(response))
 		{
