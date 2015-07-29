@@ -25,6 +25,7 @@ import com.ubhave.dataformatter.json.push.ConnectionStrengthFormatter;
 import com.ubhave.dataformatter.json.push.PassiveLocationFormatter;
 import com.ubhave.dataformatter.json.push.PhoneStateFormatter;
 import com.ubhave.dataformatter.json.push.ProximityFormatter;
+import com.ubhave.dataformatter.json.push.PushLocationFormatter;
 import com.ubhave.dataformatter.json.push.ScreenFormatter;
 import com.ubhave.dataformatter.json.push.SmsFormatter;
 import com.ubhave.datahandler.except.DataHandlerException;
@@ -86,6 +87,8 @@ public abstract class DataFormatter
             return new PhoneRadioFormatter(c);
 		case SensorUtils.SENSOR_TYPE_STEP_COUNTER:
 			return new StepCounterFormatter(c);
+		case SensorUtils.SENSOR_TYPE_PUSH_LOCATION:
+			return new PushLocationFormatter(c);
 		default:
 			return null;
 		}
