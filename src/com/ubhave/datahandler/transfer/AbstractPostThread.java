@@ -6,6 +6,9 @@ This application was developed as part of the EPSRC Ubhave (Ubiquitous and
 Social Computing for Positive Behaviour Change) Project. For more
 information, please visit http://www.emotionsense.org
 
+ Contributors:
+ Mihai Ghete <m.ghete@bikecityguide.org>, BikeCityGuide Apps GmbH, 2015
+
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
 copyright notice and this permission notice appear in all copies.

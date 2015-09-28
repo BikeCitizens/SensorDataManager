@@ -11,6 +11,9 @@ This library was developed as part of the EPSRC Ubhave (Ubiquitous and
 Social Computing for Positive Behaviour Change) Project. For more
 information, please visit [emotionsense.org](http://www.emotionsense.org)
 
+ Contributors:
+ Mihai Ghete <m.ghete@bikecityguide.org>, BikeCityGuide Apps GmbH, 2015
+ 
 ### Requirements
 
 If you are going to be using the encrypted database, you need to add the icudt46l.zip file from the sqlcipher project into your app's assets.
