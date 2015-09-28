@@ -48,7 +48,9 @@ public class UploadVault extends FileVault implements UploadVaultInterface
 	public File getUploadDirectory() throws DataHandlerException
 	{
 		final String uploadName = (String) config.get(DataStorageConfig.LOCAL_STORAGE_UPLOAD_DIRECTORY_NAME);
-		if (canWriteToExternalStorage())
+		final boolean uploadFromExternalStorage = (Boolean) config.get(DataStorageConfig.LOCAL_STORAGE_USE_EXTERNAL_STORAGE_FOR_UPLOAD);
+		
+		if (canWriteToExternalStorage() && uploadFromExternalStorage)
 		{
 			return getDirectory(getLocalDirectory(), uploadName);
 		}

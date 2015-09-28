@@ -14,6 +14,7 @@ public class DataStorageConfig
 	public final static String DATA_LIFE_MILLIS = "fileDuration";
 	public final static String UNIQUE_USER_ID = "uniqueUserID";
 	public final static String UNIQUE_DEVICE_ID = "uniqueDeviceID";
+	public final static String LOCAL_STORAGE_USE_EXTERNAL_STORAGE_FOR_UPLOAD = "useExternalStorageForUpload";
 	
 	/*
 	 * Config Values
@@ -26,6 +27,7 @@ public class DataStorageConfig
 	 */
 	public final static String DEFAULT_UPLOAD_DIRECTORY_NAME = "to_be_uploaded";
 	public final static long DEFAULT_FILE_LIFE_MILLIS = 2 * 60 * 60 * 1000L; // 2 hours
+	public final static boolean DEFAULT_USE_EXTERNAL_STORAGE_FOR_UPLOAD = false;
 
 	public static HashSet<String> validKeys()
 	{
@@ -35,6 +37,7 @@ public class DataStorageConfig
 		validKeys.add(DATA_LIFE_MILLIS);
 		validKeys.add(UNIQUE_USER_ID);
 		validKeys.add(UNIQUE_DEVICE_ID);
+		validKeys.add(LOCAL_STORAGE_USE_EXTERNAL_STORAGE_FOR_UPLOAD);
 		return validKeys;
 	}
 
@@ -43,6 +46,7 @@ public class DataStorageConfig
 		HashMap<String, Object> defaults = new HashMap<String, Object>();
 		defaults.put(LOCAL_STORAGE_UPLOAD_DIRECTORY_NAME, DEFAULT_UPLOAD_DIRECTORY_NAME);
 		defaults.put(DATA_LIFE_MILLIS, DEFAULT_FILE_LIFE_MILLIS);
+		defaults.put(LOCAL_STORAGE_USE_EXTERNAL_STORAGE_FOR_UPLOAD, DEFAULT_USE_EXTERNAL_STORAGE_FOR_UPLOAD);
 		return defaults;
 	}
 }
