@@ -28,7 +28,7 @@ public class PolicyAlarm extends BroadcastReceiver
 
 	public enum TRANSFER_POLICY
 	{
-		WIFI_ONLY, ANY_NETWORK
+		WIFI_ONLY, ANY_NETWORK, WIFI_ONLY_NO_TIMEOUT
 	}
 
 	private TRANSFER_POLICY transferPolicy;
@@ -161,7 +161,7 @@ public class PolicyAlarm extends BroadcastReceiver
 		// any network
 		if (((transferPolicy == TRANSFER_POLICY.ANY_NETWORK) && (isConnectedToAnyNetwork()))
 		// use only wifi
-				|| ((transferPolicy == TRANSFER_POLICY.WIFI_ONLY) && (isConnectedToWiFi()))
+				|| ((transferPolicy == TRANSFER_POLICY.WIFI_ONLY || transferPolicy == TRANSFER_POLICY.WIFI_ONLY_NO_TIMEOUT) && (isConnectedToWiFi()))
 				// use only wifi but if it's been more than 24 hours from the
 				// last upload time then use any available n/w
 				|| ((transferPolicy == TRANSFER_POLICY.WIFI_ONLY) && (isLastUploadTimeoutReached()) && (isConnectedToAnyNetwork())))

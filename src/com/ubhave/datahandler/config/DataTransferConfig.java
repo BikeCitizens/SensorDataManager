@@ -27,6 +27,7 @@ public class DataTransferConfig
 
 	public final static int CONNECTION_TYPE_ANY = 4001;
 	public final static int CONNECTION_TYPE_WIFI = 4002;
+	public final static int CONNECTION_TYPE_WIFI_NO_TIMEOUT = 4003;
 
 	/*
 	 * Default values

@@ -31,6 +31,10 @@ public class DataTransferAlarmListener implements AlarmListener
 		{
 			policyAlarm.setTransferPolicy(PolicyAlarm.TRANSFER_POLICY.ANY_NETWORK);
 		}
+		else if (connectionType == DataTransferConfig.CONNECTION_TYPE_WIFI_NO_TIMEOUT)
+		{
+			policyAlarm.setTransferPolicy(PolicyAlarm.TRANSFER_POLICY.WIFI_ONLY_NO_TIMEOUT);
+		}
 		
 		policyAlarm.setListener(this);
 		policyAlarm.start();
