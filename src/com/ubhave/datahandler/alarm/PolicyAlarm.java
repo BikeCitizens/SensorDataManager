@@ -42,7 +42,7 @@ public class PolicyAlarm extends BroadcastReceiver
 		this.context = context;
 		this.actionName = actionName;
 		this.configKeyAlarmInterval = configKeyAlarmInterval;
-		this.configKeyWifiLimit = configKeyAlarmInterval;
+		this.configKeyWifiLimit = configKeyWifiLimit;
 
 		this.hasStarted = false;
 		this.transferPolicy = TRANSFER_POLICY.WIFI_ONLY;
