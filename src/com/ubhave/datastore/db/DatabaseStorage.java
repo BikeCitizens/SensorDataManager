@@ -35,16 +35,9 @@ public class DatabaseStorage implements DataStorageInterface
 	{
 		this.context = context;
 		this.uploadVault = UploadVault.getInstance(context, dataPassword);
-		if (dataPassword == null)
-		{
-			Log.d(TAG, "Creating unencrypted data storage");
-			this.dataTables = new UnencryptedDataTables(context);
-		}
-		else
-		{
-			Log.d(TAG, "Creating encrypted data storage");
-			this.dataTables = new EncryptedDataTables(context, dataPassword);
-		}
+		
+		Log.d(TAG, "Creating unencrypted data storage");
+		this.dataTables = new UnencryptedDataTables(context);
 	}
 	
 	private long getPrepareTime()
